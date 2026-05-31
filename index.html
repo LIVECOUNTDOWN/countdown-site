@@ -1,200 +1,74 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Live Countdown</title>
+Skip to content
+LIVECOUNTDOWN
+countdown-site
+Repository navigation
+Code
+Issues
+Pull requests
+Agents
+Actions
+Projects
+Wiki
+Security and quality
+Insights
+Settings
+Owner avatar
+countdown-site
+Public
+LIVECOUNTDOWN/countdown-site
+Go to file
+t
+T
+Name		
+LIVECOUNTDOWN
+LIVECOUNTDOWN
+Delete CNAME
+4854974
+ · 
+4 days ago
+index.html
+index.html
+last week
+Repository files navigation
+README
+Add a README
+Help people interested in this repository understand your project.
 
-<style>
-body {
-  margin: 0;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: linear-gradient(135deg, #4facfe, #00f2fe);
-  font-family: Arial, sans-serif;
-  color: white;
-  text-align: center;
-}
-
-.container {
-  background: rgba(0,0,0,0.25);
-  padding: 40px;
-  border-radius: 20px;
-  width: 90%;
-  max-width: 700px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-}
-
-.title {
-  font-size: 2.5rem;
-  font-weight: bold;
-  margin-bottom: 20px;
-}
-
-.timer {
-  font-size: 2rem;
-  font-weight: bold;
-  margin: 10px 0;
-}
-
-button {
-  padding: 12px 18px;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  margin-top: 10px;
-}
-
-.login {
-  position: fixed;
-  top: 15px;
-  right: 15px;
-  background: white;
-  color: black;
-  font-weight: bold;
-}
-
-.panel {
-  display: none;
-  margin-top: 20px;
-  background: rgba(255,255,255,0.12);
-  padding: 20px;
-  border-radius: 15px;
-}
-
-input {
-  padding: 10px;
-  border-radius: 8px;
-  border: none;
-  margin: 5px;
-}
-</style>
-</head>
-
-<body>
-
-<button class="login" onclick="login()">🔐 Login</button>
-
-<div class="container">
-
-<div class="title">🔥 LIVE COUNTDOWN
-
-</div><h2>☀️ Summer starts in</h2>
-<div id="summer" class="timer"></div>
-
-<h2>🏫 School ends in</h2>
-<div id="school" class="timer"></div>
-
-<div class="panel" id="panel">
-
-  <h3>👑 ADMIN PANEL</h3>
-  <p>Record: 2026-05-25 17:41:52</p>
-
-  <input type="datetime-local" id="newDate">
-  <button onclick="setSummer()">Change summer</button>
-
-  <br><br>
-
-  <button onclick="playMusic()">▶ Play Final Countdown</button>
-
-</div>
-
-</div>
-
-<!-- MP4 -->
-<video id="music" src="finalcountdown.mp4" style="display:none;"></video>
-
-<script>
-
-const adminUser = "admin";
-const adminPass = "SIP2026";
-
-let summerDate = new Date("2026-06-01 00:00:00").getTime();
-
-// LOGIN
-function login() {
-  const u = prompt("Username");
-  const p = prompt("Password");
-
-  if (u === adminUser && p === adminPass) {
-    document.getElementById("panel").style.display = "block";
-    alert("Admin unlocked 👑");
-  } else {
-    alert("Wrong credentials ❌");
-  }
-}
-
-// SUMMER TIMER
-function updateSummer() {
-  const el = document.getElementById("summer");
-  const now = Date.now();
-  const d = summerDate - now;
-
-  const days = Math.floor(d / 86400000);
-  const hours = Math.floor((d % 86400000) / 3600000);
-  const minutes = Math.floor((d % 3600000) / 60000);
-  const seconds = Math.floor((d % 60000) / 1000);
-
-  el.innerText = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-}
-
-// SCHOOL TIMER
-function getFriday() {
-  const now = new Date();
-  const t = new Date();
-  const diff = (5 - now.getDay() + 7) % 7;
-
-  t.setDate(now.getDate() + diff);
-  t.setHours(13,30,0,0);
-
-  if (diff === 0 && now > t) {
-    t.setDate(t.getDate() + 7);
-  }
-
-  return t.getTime();
-}
-
-function updateSchool() {
-  const el = document.getElementById("school");
-  const now = Date.now();
-  const d = getFriday() - now;
-
-  const days = Math.floor(d / 86400000);
-  const hours = Math.floor((d % 86400000) / 3600000);
-  const minutes = Math.floor((d % 3600000) / 60000);
-  const seconds = Math.floor((d % 60000) / 1000);
-
-  el.innerText = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-}
-
-// MUSIC
-function playMusic() {
-  const v = document.getElementById("music");
-  v.currentTime = 0;
-  v.play().catch(() => alert("Click again (browser blocked audio)"));
-}
-
-// ADMIN CHANGE
-function setSummer() {
-  const v = document.getElementById("newDate").value;
-  if (v) {
-    summerDate = new Date(v).getTime();
-    alert("Updated ✅");
-  }
-}
-
-// START LOOP
-setInterval(() => {
-  updateSummer();
-  updateSchool();
-}, 1000);
-
-updateSummer();
-updateSchool();
-
-</script>
-
-</body>
-</html>
+About
+No description, website, or topics provided.
+ Activity
+Stars
+ 0 stars
+Watchers
+ 0 watching
+Forks
+ 0 forks
+Releases
+No releases published
+Create a new release
+Deployments
+7
+ github-pages 4 days ago
++ 6 deployments
+Packages
+No packages published
+Publish your first package
+Contributors
+1
+@LIVECOUNTDOWN
+LIVECOUNTDOWN
+Languages
+HTML
+100.0%
+Footer
+© 2026 GitHub, Inc.
+Footer navigation
+Terms
+Privacy
+Security
+Status
+Community
+Docs
+Contact
+Manage cookies
+Do not share my personal information
