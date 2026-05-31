@@ -1,74 +1,245 @@
-Skip to content
-LIVECOUNTDOWN
-countdown-site
-Repository navigation
-Code
-Issues
-Pull requests
-Agents
-Actions
-Projects
-Wiki
-Security and quality
-Insights
-Settings
-Owner avatar
-countdown-site
-Public
-LIVECOUNTDOWN/countdown-site
-Go to file
-t
-T
-Name		
-LIVECOUNTDOWN
-LIVECOUNTDOWN
-Delete CNAME
-4854974
- · 
-4 days ago
-index.html
-index.html
-last week
-Repository files navigation
-README
-Add a README
-Help people interested in this repository understand your project.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Live Countdown</title>
 
-About
-No description, website, or topics provided.
- Activity
-Stars
- 0 stars
-Watchers
- 0 watching
-Forks
- 0 forks
-Releases
-No releases published
-Create a new release
-Deployments
-7
- github-pages 4 days ago
-+ 6 deployments
-Packages
-No packages published
-Publish your first package
-Contributors
-1
-@LIVECOUNTDOWN
-LIVECOUNTDOWN
-Languages
-HTML
-100.0%
-Footer
-© 2026 GitHub, Inc.
-Footer navigation
-Terms
-Privacy
-Security
-Status
-Community
-Docs
-Contact
-Manage cookies
-Do not share my personal information
+<style>
+body{
+    margin:0;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#4facfe,#00f2fe);
+    font-family:Arial,sans-serif;
+    color:white;
+    text-align:center;
+}
+
+.container{
+    background:rgba(0,0,0,0.25);
+    padding:40px;
+    border-radius:20px;
+    width:90%;
+    max-width:700px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.3);
+}
+
+.title{
+    font-size:2.5rem;
+    font-weight:bold;
+    margin-bottom:20px;
+}
+
+.timer{
+    font-size:2rem;
+    font-weight:bold;
+    margin:20px 0;
+}
+
+.status{
+    font-size:1.8rem;
+    font-weight:bold;
+    margin:20px 0;
+}
+
+.login{
+    position:fixed;
+    top:15px;
+    right:15px;
+    padding:12px 18px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    background:white;
+    color:black;
+    font-weight:bold;
+}
+
+.panel{
+    display:none;
+    margin-top:25px;
+    background:rgba(255,255,255,0.15);
+    padding:20px;
+    border-radius:15px;
+}
+
+input{
+    padding:10px;
+    border:none;
+    border-radius:8px;
+    margin:5px;
+}
+
+button{
+    padding:10px 15px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<button class="login" onclick="login()">🔐 Login</button>
+
+<div class="container">
+
+    <div class="title">🔥 LIVE COUNTDOWN</div>
+
+    <h2>☀️ Summer starts in</h2>
+    <div id="summer" class="timer">Loading...</div>
+
+    <h2>🏫 School Status</h2>
+    <div class="status">
+        School has ended!
+    </div>
+
+    <div class="panel" id="panel">
+
+        <h3>👑 ADMIN PANEL</h3>
+
+        <p>Change summer date:</p>
+
+        <input type="datetime-local" id="newDate">
+
+        <button onclick="setSummer()">
+            Save Date
+        </button>
+
+        <button onclick="resetDate()">
+            Reset
+        </button>
+
+    </div>
+
+</div>
+
+<script>
+
+const ADMIN_USER = "admin";
+const ADMIN_PASS = "SIP2026";
+
+const DEFAULT_SUMMER =
+new Date("2026-06-01T00:00:00").getTime();
+
+let summerDate =
+Number(localStorage.getItem("summerDate"))
+|| DEFAULT_SUMMER;
+
+function login(){
+
+    const user = prompt("Username");
+    const pass = prompt("Password");
+
+    if(
+        user === ADMIN_USER &&
+        pass === ADMIN_PASS
+    ){
+        document
+            .getElementById("panel")
+            .style.display = "block";
+
+        alert("Admin unlocked 👑");
+    }
+    else{
+        alert("Wrong credentials ❌");
+    }
+}
+
+function updateSummer(){
+
+    const element =
+        document.getElementById("summer");
+
+    const now = Date.now();
+
+    const diff =
+        summerDate - now;
+
+    if(diff <= 0){
+
+        element.innerHTML =
+            "☀️ Summer has started!";
+
+        return;
+    }
+
+    const days =
+        Math.floor(diff / 86400000);
+
+    const hours =
+        Math.floor(
+            (diff % 86400000)
+            / 3600000
+        );
+
+    const minutes =
+        Math.floor(
+            (diff % 3600000)
+            / 60000
+        );
+
+    const seconds =
+        Math.floor(
+            (diff % 60000)
+            / 1000
+        );
+
+    element.innerHTML =
+        `${days}d ${hours}h ${minutes}m ${seconds}s`;
+}
+
+function setSummer(){
+
+    const value =
+        document
+            .getElementById("newDate")
+            .value;
+
+    if(!value){
+        alert("Select a date first.");
+        return;
+    }
+
+    summerDate =
+        new Date(value).getTime();
+
+    localStorage.setItem(
+        "summerDate",
+        summerDate
+    );
+
+    updateSummer();
+
+    alert("Saved ✅");
+}
+
+function resetDate(){
+
+    summerDate =
+        DEFAULT_SUMMER;
+
+    localStorage.removeItem(
+        "summerDate"
+    );
+
+    updateSummer();
+
+    alert("Reset complete ✅");
+}
+
+updateSummer();
+
+setInterval(
+    updateSummer,
+    1000
+);
+
+</script>
+
+</body>
+</html>
